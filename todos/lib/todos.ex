@@ -7,11 +7,13 @@ defmodule Todos do
     age
   end
 
+  # citeste un string
   defp read_todo() do
     IO.puts("Write the todo's text :")
     String.replace(IO.gets(""), "\n", "")
   end
 
+  # main
   def main() do
     lista = []
     main(lista)
