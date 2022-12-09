@@ -31,4 +31,17 @@ defmodule Hello do
     {age, _} = IO.gets("Give: ") |> Integer.parse()
     age
   end
+
+  def time_stuff(n) do
+    start = :os.system_time(:millisecond)
+    x = fib(n)
+    finish = :os.system_time(:millisecond)
+    seconds = finish - start
+    IO.puts("Took : #{seconds}")
+    IO.puts("Number : #{x}")
+  end
+
+  def fib(0), do: 0
+  def fib(1), do: 1
+  def fib(n), do: fib(n-1) + fib(n-2)
 end
