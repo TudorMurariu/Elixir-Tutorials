@@ -35,10 +35,11 @@ defmodule Todos do
       comanda == 0 -> false
       comanda == 1 -> read_todo() |> add(lista) |> main()
       comanda == 2 -> read_int() |> remove(lista) |> main()
-      comanda == 3 -> IO.puts("3") #update() |> main()
+      comanda == 3 -> id = read_int() ; text = read_todo()
+        update(id, text, lista) |> main()
       comanda == 4 -> print(lista) ; main(lista)
       comanda == 5 -> remove_all(lista) |> main()
-      comanda == 6 -> populate(lista) |> main()
+      comanda == 6 -> populate() |> main()
       true -> IO.puts("There is no command with this id") ; main(lista)
     end
   end
@@ -68,8 +69,17 @@ defmodule Todos do
   end
 
   # update
-  defp update(id, text, lista) do
+  defp update(id, text_new, [{idTodo, text} | tail]) when id == idTodo do
+    [ {id, text_new} | tail ]
+  end
 
+  defp update(id, text_new, [{idTodo, text} | tail]) do
+    [ {id, text} | update(id, text_new, tail) ]
+  end
+
+  defp update(id, text, []) do
+    IO.puts("There is no todo with this id!")
+    []
   end
 
   # print
@@ -89,8 +99,8 @@ defmodule Todos do
   end
 
   # populate
-  defp populate(lista) do
-
+  defp populate() do
+    [ {0, "Water the plants"}, {1, "Feed the cat"}, {2, "Walk the dog"}, {3, "Buy some food"}, {4, "Buy dog and cat food"}]
   end
 
   # String.replace("\n", "")
